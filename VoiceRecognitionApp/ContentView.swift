@@ -24,6 +24,8 @@ struct ContentView: View {
     @State var commandCodeList = [CommandCode]()
     @State var error = ""
     @State var currState = CommandCode()
+    
+    
     var body: some View {
         VStack {
             VStack{
@@ -88,10 +90,12 @@ struct ContentView: View {
     
     func stopRec() {
         print(speechRecognizer.transcript)
-        transcript = speechRecognizer.transcript
         speechRecognizer.stopTranscribing()
         isRecording.toggle()
-        evaluate(speech : speechRecognizer.transcript)
+        if speechRecognizer.transcript != transcript{
+            transcript = speechRecognizer.transcript
+            evaluate(speech : speechRecognizer.transcript)
+        }
         currState = commandCodeList.last ?? CommandCode()
     }
     
