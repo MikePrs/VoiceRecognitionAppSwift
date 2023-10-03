@@ -8,14 +8,12 @@
 import SwiftUI
 import AVFoundation
 import Speech
-
-enum HotWords : String,CaseIterable{
-    case count,back,code,reset
-}
+import RealmSwift
 
 
 struct ContentView: View {
     let numbersDict = ["zero":"0","one":"1","two":"2","three":"3","four":"4","five":"5","six":"6","seven":"7","eight":"8","nine":"9"]
+    @State var commandsList = [String]()
     @StateObject var speechRecognizer = SpeechRecognizer()
     @State var isRecording = false
     @State var isEvaluating = false
@@ -24,7 +22,10 @@ struct ContentView: View {
     @State var commandCodeList = [CommandCode]()
     @State var error = ""
     @State var currState = CommandCode()
-    
+    @State private var showingAlert = false
+    @State private var commandName: String = ""
+    @StateObject var realmManager = RealmManager()
+
     
     var body: some View {
         VStack {
@@ -72,12 +73,33 @@ struct ContentView: View {
                 }.disabled(isEvaluating)
                 if isRecording{AudioVisualizer()}
             }
+            HStack{
+                Spacer()
+                Button {
+                    showingAlert = true
+                } label: {
+                    Text("Add Command")
+                }.alert("Add Command", isPresented: $showingAlert,actions:{
+                    TextField("Name", text: $commandName)
+                    Button("Cancel",role: .cancel, action: {})
+                    Button("Done",action:{
+                        let addRes = realmManager.saveNewCommand(with: commandName)
+                        if addRes != "ok"{
+                           error = addRes
+                        }
+                    })
+                },message: {
+                    Text("Existing commands: \(commandsList.joined(separator: ", "))")
+                })
+            }
         }.onAppear{onAppear()}
             .padding()
     }
     
     func onAppear(){
-        
+        realmManager.commands.forEach({ commands in
+            commandsList.append(String(commands.name))
+        })
     }
     
     //MARK: - Rec Control
@@ -108,7 +130,7 @@ struct ContentView: View {
         //test start
         //        var exampleScript = ["two","code","3"]
         // text.lowercased().components(separatedBy: " ")
-        validArray = text.lowercased().components(separatedBy: " ").filter{HotWords.allCases.map { "\($0)" }.contains($0) || numbersDict.keys.contains($0) || numbersDict.values.contains($0) }
+        validArray = text.lowercased().components(separatedBy: " ").filter{commandsList.contains(($0)) || numbersDict.keys.contains($0) || numbersDict.values.contains($0) }
         //test end
         
         
@@ -124,24 +146,25 @@ struct ContentView: View {
         
         for i in 0..<validArray.count{
             
-            switch (HotWords(rawValue: validArray[i] )){
-            case .reset: do {
+            switch (validArray[i]){
+            case "reset": do {
                 commandCodeList = commandCodeList.dropLast(1)
             }
-            case .back: do {
+            case "back": do {
                 commandCodeList = commandCodeList.dropLast(1)
             }
             default : do {
-                if let command = HotWords(rawValue: validArray[i] )?.rawValue {
-                    tempCommand = command
+                
+                if commandsList.contains(validArray[i]) {
+                    tempCommand = validArray[i]
                 }else if let number = numbersDict[validArray[i]]  {
                     tempCode += number
                 }else if numbersDict.values.contains(validArray[i]) {
                     tempCode += validArray[i]
                 }
                 
-                let pushingCondition = i != validArray.count-1 ? HotWords(rawValue: validArray[i+1] )?.rawValue != nil : true
-                if (pushingCondition && validArray[i] != HotWords.reset.rawValue) {
+                let pushingCondition = i != validArray.count-1 ? commandsList.contains(validArray[i+1]) : true
+                if (pushingCondition && validArray[i] != "reset") {
                     if tempCommand != "" && tempCode != "" {
                         var cmco = CommandCode(command: tempCommand)
                         cmco.setValue(str: tempCode)

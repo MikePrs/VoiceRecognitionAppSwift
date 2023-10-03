@@ -14,6 +14,8 @@
 		057EED882ACB170A00FEDD78 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057EED872ACB170A00FEDD78 /* SpeechRecognizer.swift */; };
 		057EED8C2ACB396E00FEDD78 /* CommandCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057EED8B2ACB396E00FEDD78 /* CommandCode.swift */; };
 		057EED8F2ACC078600FEDD78 /* AudioVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057EED8E2ACC078600FEDD78 /* AudioVisualizer.swift */; };
+		057EED912ACC1E2400FEDD78 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057EED902ACC1E2400FEDD78 /* RealmManager.swift */; };
+		53B46FE2E716788E92EBBB87 /* Pods_VoiceRecognitionApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 183BDE68ADA9CDA7778F62E6 /* Pods_VoiceRecognitionApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,10 @@
 		057EED872ACB170A00FEDD78 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		057EED8B2ACB396E00FEDD78 /* CommandCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandCode.swift; sourceTree = "<group>"; };
 		057EED8E2ACC078600FEDD78 /* AudioVisualizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVisualizer.swift; sourceTree = "<group>"; };
+		057EED902ACC1E2400FEDD78 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		183BDE68ADA9CDA7778F62E6 /* Pods_VoiceRecognitionApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoiceRecognitionApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		362E82A7D148F8E36868003F /* Pods-VoiceRecognitionApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecognitionApp.debug.xcconfig"; path = "Target Support Files/Pods-VoiceRecognitionApp/Pods-VoiceRecognitionApp.debug.xcconfig"; sourceTree = "<group>"; };
+		8AFE93E531C4DE221F3FBF96 /* Pods-VoiceRecognitionApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecognitionApp.release.xcconfig"; path = "Target Support Files/Pods-VoiceRecognitionApp/Pods-VoiceRecognitionApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				53B46FE2E716788E92EBBB87 /* Pods_VoiceRecognitionApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +50,8 @@
 			children = (
 				057EED752ACB08FE00FEDD78 /* VoiceRecognitionApp */,
 				057EED742ACB08FE00FEDD78 /* Products */,
+				435A192D4ABF3CF117793F65 /* Pods */,
+				DF10411FBA157B5D0CECFCF9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,6 +89,7 @@
 			children = (
 				057EED872ACB170A00FEDD78 /* SpeechRecognizer.swift */,
 				057EED8B2ACB396E00FEDD78 /* CommandCode.swift */,
+				057EED902ACC1E2400FEDD78 /* RealmManager.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -92,6 +102,23 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		435A192D4ABF3CF117793F65 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				362E82A7D148F8E36868003F /* Pods-VoiceRecognitionApp.debug.xcconfig */,
+				8AFE93E531C4DE221F3FBF96 /* Pods-VoiceRecognitionApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		DF10411FBA157B5D0CECFCF9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				183BDE68ADA9CDA7778F62E6 /* Pods_VoiceRecognitionApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -99,9 +126,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 057EED812ACB090100FEDD78 /* Build configuration list for PBXNativeTarget "VoiceRecognitionApp" */;
 			buildPhases = (
+				EC1992672AD955EBBDFA86BB /* [CP] Check Pods Manifest.lock */,
 				057EED6F2ACB08FE00FEDD78 /* Sources */,
 				057EED702ACB08FE00FEDD78 /* Frameworks */,
 				057EED712ACB08FE00FEDD78 /* Resources */,
+				B17829943813B2AECBC44D94 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -157,6 +186,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B17829943813B2AECBC44D94 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VoiceRecognitionApp/Pods-VoiceRecognitionApp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-VoiceRecognitionApp/Pods-VoiceRecognitionApp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-VoiceRecognitionApp/Pods-VoiceRecognitionApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EC1992672AD955EBBDFA86BB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VoiceRecognitionApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		057EED6F2ACB08FE00FEDD78 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -167,6 +238,7 @@
 				057EED8C2ACB396E00FEDD78 /* CommandCode.swift in Sources */,
 				057EED772ACB08FE00FEDD78 /* VoiceRecognitionAppApp.swift in Sources */,
 				057EED8F2ACC078600FEDD78 /* AudioVisualizer.swift in Sources */,
+				057EED912ACC1E2400FEDD78 /* RealmManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +361,7 @@
 		};
 		057EED822ACB090100FEDD78 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 362E82A7D148F8E36868003F /* Pods-VoiceRecognitionApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -320,6 +393,7 @@
 		};
 		057EED832ACB090100FEDD78 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8AFE93E531C4DE221F3FBF96 /* Pods-VoiceRecognitionApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
