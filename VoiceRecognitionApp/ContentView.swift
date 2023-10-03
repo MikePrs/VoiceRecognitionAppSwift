@@ -17,18 +17,43 @@ enum HotWords : String,CaseIterable{
 struct ContentView: View {
     let numbersDict = ["zero":"0","one":"1","two":"2","three":"3","four":"4","five":"5","six":"6","seven":"7","eight":"8","nine":"9"]
     @StateObject var speechRecognizer = SpeechRecognizer()
-    @State private var transcript = ""
     @State var isRecording = false
     @State var isEvaluating = false
+    @State var transcript = "Waiting input..."
     @State var validArray = [String]()
     @State var commandCodeList = [CommandCode]()
-    
+    @State var error = ""
+    @State var currState = CommandCode()
     var body: some View {
         VStack {
             VStack{
-                Image(systemName: isRecording ? "pause.circle.fill" :"mic.fill")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
+                Text(transcript).frame(alignment: .center)
+            }.frame(maxWidth: .infinity).padding().background(.cyan).cornerRadius(20)
+            
+            if currState.command != nil{
+                VStack{
+                    VStack(alignment: .leading){
+                        Text("Command: \(currState.command!)").padding(.bottom,10)
+                        Text("Value: \(currState.value!)")
+                    }
+                }.frame(maxWidth: .infinity).padding().background(.teal).cornerRadius(20)
+            }
+            
+            Text(error).foregroundColor(.red)
+            
+            if commandCodeList.count > 0 {
+                List(commandCodeList, id: \.id) { item in
+                    HStack{
+                        VStack(alignment: .leading){
+                            Text("Command: \(item.command!)").padding(.bottom,10)
+                            Text("Value: \(item.value!)")
+                        }
+                    }
+                }
+            }
+            Spacer()
+            HStack{
+                if isRecording{AudioVisualizer()}
                 Button {
                     if isRecording {
                         stopRec()
@@ -36,15 +61,15 @@ struct ContentView: View {
                         startRec()
                     }
                 } label: {
-                    Text(isRecording ?"Stop":"Start")
+                    Image(systemName: isRecording ? "pause.circle.fill" :"mic.fill")
+                        .imageScale(.large)
+                        .foregroundColor(isRecording ? .black: .white)
+                        .frame(width: 90, height: 90)
+                        .background(isRecording ? Color.red : .accentColor)
+                        .clipShape(Circle())
                 }.disabled(isEvaluating)
+                if isRecording{AudioVisualizer()}
             }
-            
-            if let text = speechRecognizer.transcript {
-                Text(text).frame(alignment: .center)
-            }
-            
-            
         }.onAppear{onAppear()}
             .padding()
     }
@@ -55,6 +80,7 @@ struct ContentView: View {
     
     //MARK: - Rec Control
     func startRec (){
+        error = ""
         speechRecognizer.resetTranscript()
         speechRecognizer.startTranscribing()
         isRecording.toggle()
@@ -62,21 +88,32 @@ struct ContentView: View {
     
     func stopRec() {
         print(speechRecognizer.transcript)
+        transcript = speechRecognizer.transcript
         speechRecognizer.stopTranscribing()
         isRecording.toggle()
         evaluate(speech : speechRecognizer.transcript)
+        currState = commandCodeList.last ?? CommandCode()
     }
     
     //MARK: - Evaluation
     func evaluate(speech text:String) {
         isEvaluating.toggle()
-                validArray = text.components(separatedBy: " ").filter{HotWords.allCases.map { "\($0)" }.contains($0) || numbersDict.keys.contains($0) || numbersDict.values.contains($0)}
+        
+        
         
         //test start
-//        var exampleScript = ["code","two","3","four","whatever","67","count","sixty","two", "code","two","reset","code","one","one","two","count", "five","back"]
-//        validArray = exampleScript.filter{HotWords.allCases.map { "\($0)" }.contains($0) || numbersDict.keys.contains($0) || numbersDict.values.contains($0) }
+        //        var exampleScript = ["two","code","3"]
+        // text.lowercased().components(separatedBy: " ")
+        validArray = text.lowercased().components(separatedBy: " ").filter{HotWords.allCases.map { "\($0)" }.contains($0) || numbersDict.keys.contains($0) || numbersDict.values.contains($0) }
         //test end
         
+        
+        print(validArray)
+        if validArray.count == 0 {
+            error = "No valid input"
+            isEvaluating.toggle()
+            return
+        }
         
         var tempCommand = ""
         var tempCode = ""
@@ -101,12 +138,19 @@ struct ContentView: View {
                 
                 let pushingCondition = i != validArray.count-1 ? HotWords(rawValue: validArray[i+1] )?.rawValue != nil : true
                 if (pushingCondition && validArray[i] != HotWords.reset.rawValue) {
-                    print()
-                    var cmco = CommandCode(command: tempCommand)
-                    cmco.setCode(str: tempCode)
-                    commandCodeList.append(cmco)
-                    tempCommand = ""
-                    tempCode = ""
+                    if tempCommand != "" && tempCode != "" {
+                        var cmco = CommandCode(command: tempCommand)
+                        cmco.setValue(str: tempCode)
+                        commandCodeList.append(cmco)
+                        tempCommand = ""
+                        tempCode = ""
+                    }else{
+                        tempCommand = ""
+                        tempCode = ""
+                        error = "Input not given correctly."
+                        isEvaluating.toggle()
+                        return
+                    }
                 }
             }
             }

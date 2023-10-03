@@ -13,6 +13,7 @@
 		057EED7E2ACB090100FEDD78 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 057EED7D2ACB090100FEDD78 /* Preview Assets.xcassets */; };
 		057EED882ACB170A00FEDD78 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057EED872ACB170A00FEDD78 /* SpeechRecognizer.swift */; };
 		057EED8C2ACB396E00FEDD78 /* CommandCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057EED8B2ACB396E00FEDD78 /* CommandCode.swift */; };
+		057EED8F2ACC078600FEDD78 /* AudioVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 057EED8E2ACC078600FEDD78 /* AudioVisualizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +24,7 @@
 		057EED7D2ACB090100FEDD78 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		057EED872ACB170A00FEDD78 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		057EED8B2ACB396E00FEDD78 /* CommandCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandCode.swift; sourceTree = "<group>"; };
+		057EED8E2ACC078600FEDD78 /* AudioVisualizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVisualizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 		057EED752ACB08FE00FEDD78 /* VoiceRecognitionApp */ = {
 			isa = PBXGroup;
 			children = (
+				057EED8D2ACC077600FEDD78 /* Views */,
 				057EED862ACB16F400FEDD78 /* Models */,
 				057EED762ACB08FE00FEDD78 /* VoiceRecognitionAppApp.swift */,
 				057EED782ACB08FE00FEDD78 /* ContentView.swift */,
@@ -79,6 +82,14 @@
 				057EED8B2ACB396E00FEDD78 /* CommandCode.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		057EED8D2ACC077600FEDD78 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				057EED8E2ACC078600FEDD78 /* AudioVisualizer.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,6 +166,7 @@
 				057EED882ACB170A00FEDD78 /* SpeechRecognizer.swift in Sources */,
 				057EED8C2ACB396E00FEDD78 /* CommandCode.swift in Sources */,
 				057EED772ACB08FE00FEDD78 /* VoiceRecognitionAppApp.swift in Sources */,
+				057EED8F2ACC078600FEDD78 /* AudioVisualizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

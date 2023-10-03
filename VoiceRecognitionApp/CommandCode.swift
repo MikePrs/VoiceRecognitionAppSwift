@@ -8,12 +8,12 @@
 import Foundation
 
 
-struct CommandCode {
+struct CommandCode:Identifiable {
     var command : String?
-    var code : Int?
+    var value : Int?
+    var id = UUID() 
     
-    
-    mutating func setCode(str : String){
-        self.code = Int(str)
+    mutating func setValue(str : String){
+        self.value = Int(str)
     }
 }
